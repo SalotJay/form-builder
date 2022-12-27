@@ -1,17 +1,17 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 
-export const Card = ({ id, type, label }: any) => {
+export const Card = ({ id, type, label, action }: any) => {
   const [{ isDragging }, dragRef] = useDrag({
     type: "form-builder",
-    item: { id, type, label },
+    item: { id, type, label, action },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
   return (
     <div ref={dragRef}>
-      {type}
+      {action ?? type}
       {isDragging}
     </div>
   );
