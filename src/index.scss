@@ -1,15 +1,8 @@
-.card {
-  background-color: cadetblue;
-  width: 500px;
-}
-.basket {
-  margin-top: 36px;
-  width: 500px;
-  background-color: red;
-}
-.mt-12 {
-  margin-top: 12px;
-}
-.control-label {
-  color: blue;
+ .formData{
+  max-height: max-content;
+  min-height: 350px;
+  padding: 8px;
+  margin-left: 8px;
+  width:500px;  
+  border:2px dashed black;
 }
