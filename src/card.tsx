@@ -1,30 +1,28 @@
-import { Box } from "@mui/material";
-import React from "react";
+import { Box} from "@mui/material";
 import { useDrag } from "react-dnd";
 
-export const Card = ({ id, type, label, action,validate }: any) => {
+export const Card = ({ id, type, action,validate }: any) => {
   const [{ isDragging }, dragRef] = useDrag({
     type: "form-builder",
-    item: { id, type, label, action,validate },
+    item: {type, action,validate ,id,},
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
+
+
   return (
+     <>
     <div ref={dragRef}> 
-    <Box sx={{p:1}}>
-      <Box sx={{border:2,textAlign:'center',
-      p:1,
-      color:'white',
-      '&:hover': {
-      cursor: 'move',
-      color:'black',
-      backgroundColor: 'white',
-   }}}>
+    <Box sx={{p:1,margin:1}}>
+      <Box>
+       <div className="dropItems">
         {action ?? type}
+       </div>
       </Box>
       {isDragging}
     </Box>
     </div>
+   </>
   );
 };

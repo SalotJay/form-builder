@@ -6,20 +6,20 @@ import { Card } from "./card";
 import "./index.scss";
 import LabelAndFeilds from "./labelAndFeilds";
 import { Box, Button } from "@mui/material";
+import { FORM_BUILDER } from "./enum";
 
 const inputObject: any = {
   email: (
     index: number,
-    label: string,
     handleChange: any,
     handleBlur: any,
     values: any,
     errors: any,
-    touched: any
+    touched: any,
+    action:any,
   ) => (
     <LabelAndFeilds
       index={index}
-      label={label}
       handleChange={handleChange}
       handleBlur={handleBlur}
       values={values}
@@ -30,36 +30,35 @@ const inputObject: any = {
   ),
   password: (
     index: number,
-    label: string,
     handleChange: any,
     handleBlur: any,
     values: any,
     errors: any,
-    touched: any
+    touched: any,
+    action:any,
   ) => (
     <LabelAndFeilds
       index={index}
-      label={label}
       handleChange={handleChange}
       handleBlur={handleBlur}
       values={values}
       errors={errors}
       touched={touched}
       type="password"
+      
     />
   ),
   number: (
     index: number,
-    label: string,
     handleChange: any,
     handleBlur: any,
     values: any,
     errors: any,
-    touched: any
+    touched: any,
+    action:any,
   ) => (
     <LabelAndFeilds
       index={index}
-      label={label}
       handleChange={handleChange}
       handleBlur={handleBlur}
       values={values}
@@ -70,16 +69,15 @@ const inputObject: any = {
   ),
   text: (
     index: number,
-    label: string,
     handleChange: any,
     handleBlur: any,
     values: any,
     errors: any,
-    touched: any
+    touched: any,
+    action:any,
   ) => (
     <LabelAndFeilds
       index={index}
-      label={label}
       handleChange={handleChange}
       handleBlur={handleBlur}
       values={values}
@@ -90,7 +88,6 @@ const inputObject: any = {
   ),
   button: (
     index: any,
-    label: any,
     handleChange: any,
     handleBlur: any,
     values: any,
@@ -117,15 +114,6 @@ const inputObject: any = {
     </div>
   ),
 };
-
-const FORM_BUILDER = [
-  { id: 1, type: "email", label: "Please Enter Email", validate: true },
-  { id: 2, type: "password", label: "Please Enter Password", validate: true },
-  { id: 3, type: "text", label: "Please Enter text", validate: true },
-  { id: 4, type: "number", label: "Please Enter number" },
-  { id: 5, type: "button", action: "submit", label: "submit the form" },
-  { id: 6, type: "button", action: "reset", label: "reset the form" },
-];
 
 export const Basket = () => {
   const [formBuilder, setFormBuilder] = useState<any>([]);
@@ -165,10 +153,10 @@ export const Basket = () => {
   }, [formBuilder]);
 
   console.log("IntialValues = ", initialValues);
-  console.log("validating = ", isValidating);
+  // console.log("validating = ", isValidating);
   // const schema = yup.object().shape({});
 
-  return (
+   return (
     <Box sx={{ display: "flex" }}>
       <Box
         sx={{
@@ -176,7 +164,6 @@ export const Basket = () => {
           width: 150,
           minHeight: "50vh",
           display: "grid",
-          justifyContent: "space-between",
         }}
       >
         {FORM_BUILDER.map((form) => (
@@ -184,9 +171,8 @@ export const Basket = () => {
             draggable
             id={form.id}
             type={form.type}
-            label={form.label}
             action={form.action}
-            // validate={form.validate}
+            validate={form.validate}
           />
         ))}
       </Box>
@@ -217,13 +203,12 @@ export const Basket = () => {
                   <>
                     {inputObject[data?.type](
                       index,
-                      data?.label,
                       handleChange,
                       handleBlur,
                       values,
                       errors,
                       touched,
-                      data?.action
+                      data?.action,
                     )}
                   </>
                 ))}

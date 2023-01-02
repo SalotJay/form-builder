@@ -6,3 +6,15 @@
   width:500px;  
   border:2px dashed black;
 }
+
+.dropItems{
+  border:2px solid white;
+  text-align: center;
+  padding: 5px;
+  color: white;
+  &:hover{
+    cursor: move;
+    color: black;
+    background-color: white;
+  }
+}
