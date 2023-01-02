@@ -9,64 +9,6 @@ import { Box, Button } from "@mui/material";
 import { FORM_BUILDER } from "./enum";
 
 const inputObject: any = {
-  email: (
-    index: number,
-    handleChange: any,
-    handleBlur: any,
-    values: any,
-    errors: any,
-    touched: any,
-    action:any,
-  ) => (
-    <LabelAndFeilds
-      index={index}
-      handleChange={handleChange}
-      handleBlur={handleBlur}
-      values={values}
-      errors={errors}
-      touched={touched}
-      type="email"
-    />
-  ),
-  password: (
-    index: number,
-    handleChange: any,
-    handleBlur: any,
-    values: any,
-    errors: any,
-    touched: any,
-    action:any,
-  ) => (
-    <LabelAndFeilds
-      index={index}
-      handleChange={handleChange}
-      handleBlur={handleBlur}
-      values={values}
-      errors={errors}
-      touched={touched}
-      type="password"
-      
-    />
-  ),
-  number: (
-    index: number,
-    handleChange: any,
-    handleBlur: any,
-    values: any,
-    errors: any,
-    touched: any,
-    action:any,
-  ) => (
-    <LabelAndFeilds
-      index={index}
-      handleChange={handleChange}
-      handleBlur={handleBlur}
-      values={values}
-      errors={errors}
-      touched={touched}
-      type="number"
-    />
-  ),
   text: (
     index: number,
     handleChange: any,
