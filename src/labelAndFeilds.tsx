@@ -15,6 +15,8 @@ export const LabelAndFeilds=({index,handleChange,handleBlur,values,errors,touche
   const [typeValue, settypeValue] = useState<string>(`${type}`);
   const [labelValue, setlabelValue] = useState(`${(type).charAt(0).toUpperCase() + (type).slice(1)}`);
   const [expanded, setExpanded] =   useState<boolean>(false);
+  const [placeholderval,setplaceholderval]=useState("Type here...");
+
 
   return (
     <div className='formFeilds' id={`${index}_${index}`}>
@@ -38,7 +40,7 @@ export const LabelAndFeilds=({index,handleChange,handleBlur,values,errors,touche
                 onBlur={handleBlur}
                 size='small'
                 value={values[`${type}_${index}`]}
-                placeholder="Type here..."
+                placeholder={placeholderval}
                 sx={{width:'-webkit-fill-available'}}
                 />
               // {errors[`${type}_${index}`] &&
@@ -49,7 +51,7 @@ export const LabelAndFeilds=({index,handleChange,handleBlur,values,errors,touche
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            <EditModal type={type} setlabelValue={setlabelValue} open={expanded} setOpen={setExpanded} settypeValue={settypeValue} typeValue={typeValue}/>
+            <EditModal placeholderval={placeholderval} setplaceholderval={setplaceholderval} setlabelValue={setlabelValue}  setOpen={setExpanded} settypeValue={settypeValue} typeValue={typeValue} labelValue={labelValue}/>
           </Typography>
         </AccordionDetails>
       </Accordion>

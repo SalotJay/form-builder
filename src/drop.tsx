@@ -38,11 +38,12 @@ const inputObject: any = {
     action: any
   ) => (
     <div id={`${index}`}>
+      <div className="formFeilds">
       <Box sx={{ mb: 2, justifyContent: "space-between", display: "flex" }}>
         <Button type={action} variant="contained" size="small">
           {action}
         </Button>
-        <div>
+        <div className="hiddenButtons">
           <Button type="button" color="error" size="small" onClick={() => {
             document.getElementById(`${index}`)!.remove();
           }}
@@ -51,6 +52,7 @@ const inputObject: any = {
         </Button>
         </div>
       </Box>
+      </div>
     </div>
   ),
 };
@@ -99,19 +101,18 @@ export const Basket = () => {
     <Box sx={{margin:'auto'}}>
       <Typography color="white" sx={{fontSize:'40px',textAlign:'center',marginY:10}}>Drag and Drop
         Featured Form Editing</Typography>
-    <Box sx={{ display: "flex" }}>
-      <div className="dropItemsPanel">
-        {FORM_BUILDER.map((form) => (
-          <Card
+      <Box sx={{ display: "flex" }}>
+        <div className="dropItemsPanel">
+          {FORM_BUILDER.map((form) => (
+            <Card
             draggable
             id={form.id}
             type={form.type}
             action={form.action}
             validate={form.validate}
           />
-        ))}
-      </div>
-      <Box>
+          ))}
+        </div>
         <div ref={dropRef}>
           <Formik
             initialValues={initialValues}
@@ -163,7 +164,6 @@ export const Basket = () => {
           </Formik>
         </div>
       </Box>
-    </Box>
     </Box>
   );
 };
