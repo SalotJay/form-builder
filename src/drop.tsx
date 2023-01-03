@@ -5,7 +5,7 @@ import { useDrop } from "react-dnd";
 import { Card } from "./card";
 import "./index.scss";
 import LabelAndFeilds from "./labelAndFeilds";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { FORM_BUILDER } from "./enum";
 
 const inputObject: any = {
@@ -42,16 +42,14 @@ const inputObject: any = {
         <Button type={action} variant="contained" size="small">
           {action}
         </Button>
-        <Button
-          type="button"
-          color="error"
-          size="small"
-          onClick={() => {
+        <div>
+          <Button type="button" color="error" size="small" onClick={() => {
             document.getElementById(`${index}`)!.remove();
           }}
         >
           ❌
         </Button>
+        </div>
       </Box>
     </div>
   ),
@@ -59,7 +57,7 @@ const inputObject: any = {
 
 export const Basket = () => {
   const [formBuilder, setFormBuilder] = useState<any>([]);
-  const [isValidating, setValidating] = useState<any>([]);
+  // const [isValidating, setValidating] = useState<any>([]);
   const [isDragging, setDragging] = useState<Boolean>(false);
 
   const [{ isOver }, dropRef] = useDrop({
@@ -95,19 +93,14 @@ export const Basket = () => {
   }, [formBuilder]);
 
   console.log("IntialValues = ", initialValues);
-  // console.log("validating = ", isValidating);
   // const schema = yup.object().shape({});
 
    return (
+    <Box sx={{margin:'auto'}}>
+      <Typography color="white" sx={{fontSize:'40px',textAlign:'center',marginY:10}}>Drag and Drop
+        Featured Form Editing</Typography>
     <Box sx={{ display: "flex" }}>
-      <Box
-        sx={{
-          backgroundColor: "grey",
-          width: 150,
-          minHeight: "50vh",
-          display: "grid",
-        }}
-      >
+      <div className="dropItemsPanel">
         {FORM_BUILDER.map((form) => (
           <Card
             draggable
@@ -117,7 +110,7 @@ export const Basket = () => {
             validate={form.validate}
           />
         ))}
-      </Box>
+      </div>
       <Box>
         <div ref={dropRef}>
           <Formik
@@ -159,7 +152,7 @@ export const Basket = () => {
                     sx={{
                       textAlign: "center",
                       alignItems: "center",
-                      marginTop: "30%",
+                      marginTop: "20%",
                     }}
                   >
                     Drop item here from left side
@@ -170,6 +163,7 @@ export const Basket = () => {
           </Formik>
         </div>
       </Box>
+    </Box>
     </Box>
   );
 };

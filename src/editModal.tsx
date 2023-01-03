@@ -1,41 +1,46 @@
-import React from 'react'
-import { Modal, Box, TextField, FormControl, InputLabel, Select, MenuItem, Button } from '@mui/material'
+import React, { useState } from 'react'
+import {TextField, Select, MenuItem, Button, Typography, Box } from '@mui/material'
 
-const style = {
-  display:'grid',
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+const EditModal=({setlabelValue,setOpen,settypeValue,typeValue,labelValue}:any)=> {
+    const [typeval,settypeVal]=useState(typeValue);
+    const [labelval,setlabelVal]=useState(labelValue);
 
-const EditModal=({open,handleClose,typeValue,handletypeChange,handlelabelChange}:any)=> {
-  return (
-    <Modal open={open} onClose={handleClose}>
-          <Box sx={style}>
-            <TextField id="textid" label="Enter Label " onChange={handlelabelChange}/>
-            <FormControl>
-              <InputLabel id="simple-select-label">Type</InputLabel>
-              <Select
-                labelId="simple-select-label"
-                value={typeValue}
-                label="Type"
-                onChange={handletypeChange}
-              >
-                <MenuItem value={"email"}>Email</MenuItem>
-                <MenuItem value={"number"}>Number</MenuItem>
-                <MenuItem value={"text"}>Text</MenuItem>
-                <MenuItem value={"password"}>Password</MenuItem>
-              </Select>
-            </FormControl>
-            <Button type='button' size="small" onClick={()=>handleClose()}>Save</Button>
-          </Box>
-        </Modal>
+    const saveDetails=()=>{
+        setlabelValue(labelval);
+        settypeValue(typeval);
+        handleClose();
+    }
+    const handleClose = () => setOpen(false);
+    const handlelabelChange=(e:any)=>{
+        setlabelVal(e.target.value)
+    }
+    const handletypeChange=(e:any)=>{
+        settypeVal(e.target.value);
+        setlabelVal(`${(e.target.value).charAt(0).toUpperCase() + (e.target.value).slice(1)}`);
+    }
+    return (
+            <div className='modalStyle'>
+                <Box sx={{display:'flex',alignItems:'center'}}>
+                    <Typography sx={{mr:2, fontWeight:600}} fontSize="15px">Label :  </Typography>
+                    <TextField size='small' id="textid" onChange={handlelabelChange} value={labelval}/></Box>
+                    <Box sx={{mt:5, display:'flex',alignItems:'center'}}>
+                        <Typography sx={{mr:2,fontWeight: 600}} fontSize="15px">Type :  </Typography>
+                        <Select
+                            value={typeval}
+                            onChange={handletypeChange}
+                            size='small'
+                        >
+                            <MenuItem value={"email"}>Email</MenuItem>
+                            <MenuItem value={"number"}>Number</MenuItem>
+                            <MenuItem value={"text"}>Text</MenuItem>
+                            <MenuItem value={"password"}>Password</MenuItem>
+                        </Select>
+                </Box>
+                <Box>
+                    <Button type='button' size="small" onClick={()=>saveDetails()}>Save</Button>
+                    <Button type='button' size="small" onClick={()=>handleClose()}>Cancel</Button>
+                </Box>
+            </div>
   )
 }
 

@@ -1,10 +1,22 @@
- .formData{
+.formData{
   max-height: max-content;
   min-height: 350px;
   padding: 8px;
   margin-left: 8px;
-  width:500px;  
+  width:700px;  
   border:2px dashed black;
+}
+
+.dropItemsPanel{
+  width: 150px;
+  min-height: 50vh;
+  display: grid;
+  align-items: center;
+}
+
+.dropItemsPanelData{
+  margin:5px;
+  padding:5px;
 }
 
 .dropItems{
@@ -17,4 +29,31 @@
     color: black;
     background-color: white;
   }
+}
+
+.formFeilds{
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:2px ;
+ .hiddenButtons {
+    display: none;
+  }
+  &:hover{
+    .hiddenButtons{
+      display: flex;
+    }
+  }
+}
+
+.modalStyle{
+  width: 600px;
+  background-color: #f5f5f5;
+  border: 1px solid #9e9e9e;
+  padding: 30px;
+  display: grid;
+}
+
+.formElements{
+  display: flex;
+  justify-content: space-between;
 }

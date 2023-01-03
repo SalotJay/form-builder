@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Box, Button,TextField } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary,Box,Button,TextField, Typography } from '@mui/material'
 import EditModal from './editModal';
-
 interface data{
     index: number,
     handleChange: any,
@@ -13,35 +12,48 @@ interface data{
 }
 
 export const LabelAndFeilds=({index,handleChange,handleBlur,values,errors,touched,type}:data)=> {
-  const [open, setOpen] = useState(false);
   const [typeValue, settypeValue] = useState<string>(`${type}`);
-  const [labelValue, setlabelValue] = useState(`Please Enter ${(type).charAt(0).toUpperCase() + (type).slice(1)}`);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const handlelabelChange=(e:any)=>{
-        setlabelValue(e.target.value);
-  }
-  const handletypeChange=(e:any)=>{
-        settypeValue(e.target.value);
-        setlabelValue(`Please Enter ${(e.target.value).charAt(0).toUpperCase() + (e.target.value).slice(1)}`);
-  }
+  const [labelValue, setlabelValue] = useState(`${(type).charAt(0).toUpperCase() + (type).slice(1)}`);
+  const [expanded, setExpanded] =   useState<boolean>(false);
 
   return (
-    <Box id={`${index}_${index}`} sx={{display:'flex',alignItems:'center', justifyContent:'space-between',mb:2 }}>
-      <TextField id={`${type}_${index}`} label={labelValue} variant="standard" name={`${type}_${index}`}
-        type={typeValue}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values[`${type}_${index}`]}/>
-        {errors[`${type}_${index}`] &&
-        touched[`${type}${index}`] &&
-        errors[`${type}${index}`]}
-      <Box>
-        <Button type='button'  size="small" onClick={handleOpen} >🖍</Button>
-        <EditModal open={open} handleClose={handleClose} typeValue={typeValue} handletypeChange={handletypeChange} handlelabelChange={handlelabelChange}/>
-        <Button type='button' color='error' size="small" onClick={() => { document.getElementById(`${index}_${index}`)!.remove()}} >❌</Button>
-      </Box>  
-    </Box>
+    <div className='formFeilds' id={`${index}_${index}`}>
+      <Accordion expanded={expanded} >
+        <AccordionSummary
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+          >
+          <Box sx={{justifyContent:'space-between',width:'-webkit-fill-available',alignItems:'center'}}>
+              <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+                <Typography sx={{m:'5px'}}>{labelValue}</Typography>  
+                <div className='hiddenButtons'>
+                  <Button size='small' type="button" onClick={()=>{setExpanded(expanded?false:true)}}>🖍</Button>
+                  <Button size='small' type='button' color='error' onClick={() => { document.getElementById(`${index}_${index}`)!.remove()}} >❌</Button>
+                </div>
+              </Box>
+              {!expanded && (
+              <TextField id={`${type}_${index}`} variant="outlined" name={`${type}_${index}`}
+                type={typeValue}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                size='small'
+                value={values[`${type}_${index}`]}
+                placeholder="Type here..."
+                sx={{width:'-webkit-fill-available'}}
+                />
+              // {errors[`${type}_${index}`] &&
+              // touched[`${type}${index}`] &&
+              // errors[`${type}${index}`]}
+              )}
+          </Box>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            <EditModal type={type} setlabelValue={setlabelValue} open={expanded} setOpen={setExpanded} settypeValue={settypeValue} typeValue={typeValue}/>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
   )
 }
 

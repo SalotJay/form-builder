@@ -13,15 +13,11 @@ export const Card = ({ id, type, action,validate }: any) => {
 
   return (
      <>
-    <div ref={dragRef}> 
-    <Box sx={{p:1,margin:1}}>
-      <Box>
+    <div ref={dragRef} className="dropItemsPanelData"> 
        <div className="dropItems">
         {action ?? type}
        </div>
-      </Box>
-      {isDragging}
-    </Box>
+      {/* {isDragging} */}
     </div>
    </>
   );
