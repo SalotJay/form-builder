@@ -28,6 +28,44 @@ const inputObject: any = {
       type="text"
     />
   ),
+  textArea: (
+    index: number,
+    handleChange: any,
+    handleBlur: any,
+    values: any,
+    errors: any,
+    touched: any,
+    action: any,
+  ) => (
+    <LabelAndFeilds
+      index={index}
+      handleChange={handleChange}
+      handleBlur={handleBlur}
+      values={values}
+      errors={errors}
+      touched={touched}
+      type="textArea"
+    />
+  ),
+  dateFeild: (
+    index: number,
+    handleChange: any,
+    handleBlur: any,
+    values: any,
+    errors: any,
+    touched: any,
+    action: any,
+  ) => (
+    <LabelAndFeilds
+      index={index}
+      handleChange={handleChange}
+      handleBlur={handleBlur}
+      values={values}
+      errors={errors}
+      touched={touched}
+      type="dateFeild"
+    />
+  ),
   button: (
     index: any,
     handleChange: any,

@@ -8,7 +8,7 @@ body {
   background-color: aqua;
   background-image: url(https://formbuilder.online/assets/img/demo-background.svg),linear-gradient(to bottom,#000,#00e676);
 ;
-height: 100vh;
+min-height: 100vh;
 }
 
 code {
