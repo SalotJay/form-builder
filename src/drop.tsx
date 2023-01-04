@@ -16,7 +16,7 @@ const inputObject: any = {
     values: any,
     errors: any,
     touched: any,
-    action:any,
+    action: any,
   ) => (
     <LabelAndFeilds
       index={index}
@@ -37,29 +37,21 @@ const inputObject: any = {
     touched: any,
     action: any
   ) => (
-    <div id={`${index}`}>
-      <div className="formFeilds">
-      <Box sx={{ mb: 2, justifyContent: "space-between", display: "flex" }}>
-        <Button type={action} variant="contained" size="small">
-          {action}
-        </Button>
-        <div className="hiddenButtons">
-          <Button type="button" color="error" size="small" onClick={() => {
-            document.getElementById(`${index}`)!.remove();
-          }}
-        >
-          ❌
-        </Button>
-        </div>
-      </Box>
-      </div>
-    </div>
+    <LabelAndFeilds
+      index={index}
+      handleChange={handleChange}
+      handleBlur={handleBlur}
+      values={values}
+      errors={errors}
+      touched={touched}
+      type="button"
+      action={action}
+    />
   ),
 };
 
 export const Basket = () => {
   const [formBuilder, setFormBuilder] = useState<any>([]);
-  // const [isValidating, setValidating] = useState<any>([]);
   const [isDragging, setDragging] = useState<Boolean>(false);
 
   const [{ isOver }, dropRef] = useDrop({
@@ -77,12 +69,6 @@ export const Basket = () => {
     const obj = Object.fromEntries(
       formBuilder.map((data: any, index: number) => {
         setDragging(true);
-        console.log("data is ", data);
-        // if(data?.validate){
-        //   const test={}
-        //   console.log("test = ",test);
-        //   setValidating([...isValidating,test]);
-        // }
         if (data?.type !== "button") {
           return [`${data.type}_${index}`, ""];
         }
@@ -94,31 +80,26 @@ export const Basket = () => {
     );
   }, [formBuilder]);
 
-  console.log("IntialValues = ", initialValues);
-  // const schema = yup.object().shape({});
-
-   return (
-    <Box sx={{margin:'auto'}}>
-      <Typography color="white" sx={{fontSize:'40px',textAlign:'center',marginY:10}}>Drag and Drop
+  return (
+    <Box sx={{ margin: 'auto' }}>
+      <Typography color="white" sx={{ fontSize: '40px', textAlign: 'center', marginY: 10 }}>Drag and Drop
         Featured Form Editing</Typography>
       <Box sx={{ display: "flex" }}>
         <div className="dropItemsPanel">
           {FORM_BUILDER.map((form) => (
             <Card
-            draggable
-            id={form.id}
-            type={form.type}
-            action={form.action}
-            validate={form.validate}
-          />
+              draggable
+              id={form.id}
+              type={form.type}
+              action={form.action}
+              validate={form.validate}
+            />
           ))}
         </div>
         <div ref={dropRef}>
           <Formik
             initialValues={initialValues}
-            // validate={validate(schema)}
             onSubmit={(values, { setSubmitting }) => {
-              console.log("Submitted");
               setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
                 setSubmitting(false);
@@ -154,6 +135,8 @@ export const Basket = () => {
                       textAlign: "center",
                       alignItems: "center",
                       marginTop: "20%",
+                      color: 'white',
+                      fontSize: '25px'
                     }}
                   >
                     Drop item here from left side
