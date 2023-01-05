@@ -5,8 +5,27 @@ import { useDrop } from "react-dnd";
 import { Card } from "./card";
 import "./index.scss";
 import LabelAndFeilds from "./labelAndFeilds";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { FORM_BUILDER } from "./enum";
+import { formbackground } from "./style";
+import { TextFields } from "@mui/icons-material";
+
+const initalValue = {
+  backgroundColor: "white",
+  padding: 8,
+  margin: 8,
+  borderPX: 1,
+  borderType: "solid",
+  borderColor: "black",
+};
 
 const inputObject: any = {
   text: (
@@ -16,7 +35,7 @@ const inputObject: any = {
     values: any,
     errors: any,
     touched: any,
-    action: any,
+    action: any
   ) => (
     <LabelAndFeilds
       index={index}
@@ -35,7 +54,7 @@ const inputObject: any = {
     values: any,
     errors: any,
     touched: any,
-    action: any,
+    action: any
   ) => (
     <LabelAndFeilds
       index={index}
@@ -54,7 +73,7 @@ const inputObject: any = {
     values: any,
     errors: any,
     touched: any,
-    action: any,
+    action: any
   ) => (
     <LabelAndFeilds
       index={index}
@@ -90,7 +109,11 @@ const inputObject: any = {
 
 export const Basket = () => {
   const [formBuilder, setFormBuilder] = useState<any>([]);
+  const [globalCss, setGlobalCss] = useState<any>(initalValue);
   const [isDragging, setDragging] = useState<Boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  console.log("globalcss", globalCss);
 
   const [{ isOver }, dropRef] = useDrop({
     accept: "form-builder",
@@ -119,9 +142,13 @@ export const Basket = () => {
   }, [formBuilder]);
 
   return (
-    <Box sx={{ margin: 'auto' }}>
-      <Typography color="white" sx={{ fontSize: '40px', textAlign: 'center', marginY: 10 }}>Drag and Drop
-        Featured Form Editing</Typography>
+    <Box sx={{ margin: "auto" }}>
+      <Typography
+        color="white"
+        sx={{ fontSize: "40px", textAlign: "center", marginY: 10 }}
+      >
+        Drag and Drop Featured Form Editing
+      </Typography>
       <Box sx={{ display: "flex" }}>
         <div className="dropItemsPanel">
           {FORM_BUILDER.map((form) => (
@@ -153,7 +180,10 @@ export const Basket = () => {
               handleSubmit,
               isSubmitting,
             }: any) => (
-              <form onSubmit={handleSubmit} className="formData">
+              <form
+                onSubmit={handleSubmit}
+                className={formbackground(globalCss)}
+              >
                 {formBuilder.map((data: any, index: number) => (
                   <>
                     {inputObject[data?.type](
@@ -163,7 +193,7 @@ export const Basket = () => {
                       values,
                       errors,
                       touched,
-                      data?.action,
+                      data?.action
                     )}
                   </>
                 ))}
@@ -173,8 +203,8 @@ export const Basket = () => {
                       textAlign: "center",
                       alignItems: "center",
                       marginTop: "20%",
-                      color: 'white',
-                      fontSize: '25px'
+                      color: "white",
+                      fontSize: "25px",
                     }}
                   >
                     Drop item here from left side
@@ -183,6 +213,91 @@ export const Basket = () => {
               </form>
             )}
           </Formik>
+        </div>
+        <div>
+          <Accordion expanded={expanded}>
+            <AccordionSummary
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Button
+                size="small"
+                type="button"
+                color="error"
+                onClick={() => {
+                  setExpanded(!expanded);
+                }}
+              >
+                Edit
+              </Button>
+              <Typography>Global CSS</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography sx={{ m: "5px" }}>{"background color"}</Typography>
+              <TextField
+                type="color"
+                variant="outlined"
+                label="background color"
+                sx={{ width: "100%" }}
+                onChange={(e: any) =>
+                  setGlobalCss({
+                    ...globalCss,
+                    backgroundColor: e.target.value,
+                  })
+                }
+              />
+              <Typography sx={{ m: "5px" }}>{"padding"}</Typography>
+              <TextField
+                type="number"
+                variant="outlined"
+                label="padding"
+                onChange={(e: any) =>
+                  setGlobalCss({ ...globalCss, padding: e.target.value })
+                }
+              />
+              <Typography sx={{ m: "5px" }}>{"margin"}</Typography>
+              <TextField
+                type="number"
+                variant="outlined"
+                label="margin"
+                onChange={(e: any) =>
+                  setGlobalCss({ ...globalCss, margin: e.target.value })
+                }
+              />
+              <Typography sx={{ m: "5px" }}>{"Border"}</Typography>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <TextField
+                  type="number"
+                  variant="outlined"
+                  label="Border PX"
+                  onChange={(e: any) =>
+                    setGlobalCss({ ...globalCss, borderPixel: e.target.value })
+                  }
+                />
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Border Type"
+                  onChange={(e: any) =>
+                    setGlobalCss({ ...globalCss, borderType: e.target.value })
+                  }
+                />{" "}
+                <TextField
+                  type="color"
+                  variant="outlined"
+                  label="Border Color"
+                  onChange={(e: any) =>
+                    setGlobalCss({ ...globalCss, borderColor: e.target.value })
+                  }
+                />
+              </div>
+            </AccordionDetails>
+          </Accordion>
         </div>
       </Box>
     </Box>

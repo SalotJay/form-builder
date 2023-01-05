@@ -13,7 +13,9 @@ export const Card = ({ id, type, action, validate }: any) => {
   return (
     <>
       <div ref={dragRef} className="dropItemsPanelData">
-        <div className="dropItems">{(type).charAt(0).toUpperCase() + (type).slice(1)}</div>
+        <div className="dropItems">
+          {type.charAt(0).toUpperCase() + type.slice(1)}
+        </div>
       </div>
     </>
   );
