@@ -113,8 +113,6 @@ export const Basket = () => {
   const [isDragging, setDragging] = useState<Boolean>(false);
   const [expanded, setExpanded] = useState<boolean>(false);
 
-  console.log("globalcss", globalCss);
-
   const [{ isOver }, dropRef] = useDrop({
     accept: "form-builder",
     drop: (item) => {
